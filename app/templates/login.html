@@ -1,18 +1,12 @@
-{% extends "bootstrap/base.html" %}
-{% block title %}Login{% endblock %}
+{% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+<title>{% block title %}Login{% endblock %}</title>
+
 {% block content %}
-<form method="POST" action="/login">
-    {{ form.hidden_tag() }}
-    <p>{{ form.name(size=20) }}</p>
-    {% for error in form.name.errors %}
-    <span style="color: red;">{{error}}</span>
-    <p>{% endfor %}</p>
-    <p>{{ form.password(size=20) }}</p>
-    <p>{{ form.remember_me }} Remember Me</p>
-    <input type="submit" value="login">
-</form>
+<div class="container">
+    <form method="post" action="login">
+        {{ wtf.quick_form(form}}
+    </form>
+</div>
 {% endblock %}
-{% block styles %}
-<link rel="stylesheet"
-      href="static/bootstrap.min.css">
-{% endblock %}
+
