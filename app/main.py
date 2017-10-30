@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # hello word
-from flask import Blueprint, render_template, redirect , url_for
+from flask import Blueprint, render_template, redirect, url_for, current_app
 from .nav import nav
 from flask_nav.elements import Navbar, View, Separator, Subgroup, Link
 from .forms import LoginForm
@@ -32,7 +32,8 @@ def index():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        return redirect(url_for('main.index'))
+        if form.name.data == current_app.config['SUPER_USER'] and form.password.data == current_app.config['SUPER_PASSWORD']:
+            return redirect(url_for('main.index'))
     return render_template('login.html', form=form)
 
 
